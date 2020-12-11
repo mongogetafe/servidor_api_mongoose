@@ -8,7 +8,8 @@ const producto = require('./routes/producto');
 
 const options = {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useCreateIndex: true
 }
 
 mongoose.connect('mongodb://localhost:27017/erp', options)
