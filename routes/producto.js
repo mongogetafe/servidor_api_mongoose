@@ -3,7 +3,29 @@ const app = express();
 
 const Producto = require('../models/producto');
 
+
+app.get('/', (req, res) => {
+    Producto.find({}).select({nombre: 1, sku: 1, _id: 0}).exec((err, productos) => {
+        res.status(200).json({
+            productos: productos
+        })
+    })
+})
+
+
 app.post('/', (req, res) => {
+
+    const propertiesIn = Object.keys(req.body);
+    const propertiesAllowed = ['nombre','sku','descripcion','precio','proveedor'];
+    const validPost = propertiesIn.every(property => {
+        propertiesAllowed.includes(property);
+    })
+
+    if (!validPost) {
+        return res.status(400).json({
+            mensajeError: 'Propiedades no válidas'
+        })
+    }
 
     let producto = new Producto({
         nombre: req.body.nombre,
