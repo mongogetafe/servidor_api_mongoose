@@ -1,10 +1,14 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const dotenv = require('dotenv');
+dotenv.config()
 
 const app = express();
 
 const producto = require('./routes/producto');
+
+const port = process.env.PORT;  // Declaramos las variables en Node es VARIABLE_ENTORNO=valor
 
 const options = {
     useNewUrlParser: true,
@@ -25,6 +29,6 @@ app.use(bodyParser.json());
 
 app.use('/producto', producto);
 
-app.listen(8080, () => {
-    console.log(`Servidor escuchando en http://localhost:8080`)
+app.listen(port, () => {
+    console.log(`Servidor escuchando en http://localhost:${port}`)
 })
