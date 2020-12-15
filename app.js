@@ -1,22 +1,23 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-// const dotenv = require('dotenv');
-// dotenv.config()
+const dotenv = require('dotenv');
+dotenv.config()
 
 const app = express();
 
 const producto = require('./routes/producto');
 
-// const port = process.env.PORT;  // Declaramos las variables en Node es VARIABLE_ENTORNO=valor
-const port = 3000;
+const port = process.env.PORT;  // Declaramos las variables en Node es VARIABLE_ENTORNO=valor
+const mongoURI = process.env.MONGOURI;
+
 const options = {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true
 }
 
-mongoose.connect('mongodb://localhost:27017/erp', options)
+mongoose.connect(mongoURI, options)
         .then(() => {
             console.log('Conexión ok a base de datos');
         })
