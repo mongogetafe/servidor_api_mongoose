@@ -1,5 +1,8 @@
 const express = require('express');
+const mongoose = require('mongoose');
+
 const app = express();
+
 
 const Producto = require('../models/producto');
 
@@ -18,16 +21,24 @@ app.get('/', (req, res) => {
 })
 
 app.get('/:_id', (req, res) => {
-    Producto.findOne({_id: req.params._id}, (err, producto) => {
-        console.log(err)
+
+    let ObjectId = mongoose.Types.ObjectId;
+    if(!ObjectId.isValid(req.params._id)) {
+        return res.status(400).json({
+            mensajeError: '_id no válido'
+        })
+    }
+
+    Producto.findById(req.params._id, (err, producto) => {
+        if(producto === null) {
+            return res.status(400).json({
+                mensajeError: 'El registro no existe'
+            })
+        }
         if (err) {
-            // if (err.kind === 'ObjectId') {
-            //     return res.status(400).json({
-            //         mensajeError: 'No se encontró el registro'
-            //     })
-            // }
             return res.status(500).json({
-                mensajeError: 'Base de datos no disponible'
+                mensajeError: 'Base de datos no disponible',
+                error: err
             })
         }
         res.status(200).json({

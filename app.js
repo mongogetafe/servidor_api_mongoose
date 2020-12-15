@@ -1,15 +1,15 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const dotenv = require('dotenv');
-dotenv.config()
+// const dotenv = require('dotenv');
+// dotenv.config()
 
 const app = express();
 
 const producto = require('./routes/producto');
 
-const port = process.env.PORT;  // Declaramos las variables en Node es VARIABLE_ENTORNO=valor
-
+// const port = process.env.PORT;  // Declaramos las variables en Node es VARIABLE_ENTORNO=valor
+const port = 3000;
 const options = {
     useNewUrlParser: true,
     useUnifiedTopology: true,
