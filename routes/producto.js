@@ -50,17 +50,17 @@ app.get('/:_id', (req, res) => {
 
 app.post('/', (req, res) => {
 
-    const propertiesIn = Object.keys(req.body);
-    const propertiesAllowed = ['nombre','sku','descripcion','precio','proveedor'];
-    const validPost = propertiesIn.every(property => {
-        propertiesAllowed.includes(property);
-    })
+    // const propertiesIn = Object.keys(req.body);
+    // const propertiesAllowed = ['nombre','sku','descripcion','precio','proveedor'];
+    // const validPost = propertiesIn.every(property => {
+    //     propertiesAllowed.includes(property);
+    // })
 
-    if (!validPost) {
-        return res.status(400).json({
-            mensajeError: 'Propiedades no válidas'
-        })
-    }
+    // if (!validPost) {
+    //     return res.status(400).json({
+    //         mensajeError: 'Propiedades no válidas'
+    //     })
+    // }
 
     let producto = new Producto({
         nombre: req.body.nombre,

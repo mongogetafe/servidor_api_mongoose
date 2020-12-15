@@ -17,3 +17,7 @@ Paquete dotenv de npm (ver en app.js)
 Las llamadas desde código
 
 process.env.VARIABLE
+
+MongoURI para replica set sin dominio:
+
+mongodb://localhost:27101,localhost:27102,localhost:27103/erp?replicaSet=clusterGetafe
