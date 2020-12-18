@@ -8,7 +8,8 @@ const Producto = require('../models/producto');
 
 
 app.get('/', (req, res) => {
-    Producto.find({}).select({nombre: 1, sku: 1, _id: 0}).exec((err, productos) => {
+    // Producto.find({}).select({nombre: 1, sku: 1, _id: 0}).exec((err, productos) => { // Con proyección
+    Producto.find({}).exec((err, productos) => {
         if (err) {
             return res.status(500).json({
                 mensajeError: 'Base de datos no disponible'
@@ -45,6 +46,21 @@ app.get('/:_id', (req, res) => {
             producto: producto
         })
     })
+})
+
+app.get('/search/:termino', (req, res) => {
+    Producto.find({nombre: {$regex: req.params.termino, $options: 'i'}})
+            .exec((err, productos) => {
+                if (err) {
+                    return res.status(400).json({
+                        mensajeError: err
+                    })
+                }
+
+                res.status(200).json({
+                    productos: productos
+                })
+            })
 })
 
 
@@ -87,7 +103,7 @@ app.post('/', (req, res) => {
         } 
 
         res.status(200).json({
-            message: 'ok'
+            message: 'El producto ha sido creado con éxito'
         })
     })
 
